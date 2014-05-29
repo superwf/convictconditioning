@@ -32,8 +32,12 @@ angular.module("app.controllers", [])
   $scope.style = Style.getByName($stateParams.style)
   null
 .controller "RecordCtrl", ($scope, TrainingRecord) ->
-  $scope.records = TrainingRecord
+  map = (d) ->
+    emit d
+  TrainingRecord.query(map: map, reduce: false, limit: 4).then (records)->
+    $scope.records = records.rows
 
-  $scope.delete = (record) ->
+  $scope.delete = (record, i) ->
     TrainingRecord.remove record
+    $scope.records.splice(i, 1)
   null

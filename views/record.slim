@@ -1,12 +1,12 @@
-ion-view title="record" 
+ion-view title="记录" 
   ion-nav-buttons side="left" 
     button.button.button-icon.icon.ion-navicon menu-toggle="left" 
   ion-content.has-header
-    .card pouch-repeat="r in records"
+    .card ng-repeat="r in records"
       .item.item-divider
-        | date: {{r._id}}
-        button.col-offset-10.ion-trash-a ng-click="delete(r)"
-      .item.item-text-wrap ng-repeat="d in r.data"
+        | date: {{r.id}}
+        button.col-offset-10.ion-trash-a ng-click="delete(r.key, $index)"
+      .item.item-text-wrap ng-repeat="d in r.key.data"
         | 锻炼项目: {{d.style}}
         span.ion-minus
         span.ion-chevron-right
