@@ -1,0 +1,17 @@
+ion-view title="record" 
+  ion-nav-buttons side="left" 
+    button.button.button-icon.icon.ion-navicon menu-toggle="left" 
+  ion-content.has-header
+    .card pouch-repeat="r in records"
+      .item.item-divider
+        | date: {{r._id}}
+        button.col-offset-10.ion-trash-a ng-click="delete(r)"
+      .item.item-text-wrap ng-repeat="d in r.data"
+        | 锻炼项目: {{d.style}}
+        span.ion-minus
+        span.ion-chevron-right
+        | {{d.level}}
+        br
+        | 组数: {{d.sets}}
+        span.ion-close
+        | 次数: {{d.times}}

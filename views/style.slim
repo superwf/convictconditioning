@@ -1,0 +1,7 @@
+ion-view title="{{style.name}}" 
+  ion-nav-buttons side="left" 
+    button.button.button-icon.icon.ion-navicon menu-toggle="left" 
+  ion-content.has-header
+    ion-list
+      ion-item href="#/app/level/{{style.name}}/{{level}}" ng-repeat=("level in style.level") 
+        | {{level}}

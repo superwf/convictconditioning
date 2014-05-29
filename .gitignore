@@ -1,0 +1,11 @@
+www/lib/*
+www/js/*
+www/views/*
+.tmp
+*.swp
+*.bak
+.sass-cache
+test/*.js
+/tmp
+node_modules/
+platforms/

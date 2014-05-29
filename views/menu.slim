@@ -1,0 +1,22 @@
+ion-side-menus
+  ion-pane ion-side-menu-content="" 
+    ion-nav-bar.bar-stable.nav-title-slide-ios7
+      ion-nav-back-button.button-clear
+        i.icon.ion-chevron-left
+    ion-nav-view animation="slide-left-right" name="menuContent" 
+  ion-side-menu side="left" 
+    header.bar.bar-header.bar-stable
+      h1.title 六艺
+    ion-content.has-header
+      ion-list
+        ion-item href="#/app/style/{{style.name}}" menu-close="" nav-clear="" ng-repeat="style in Style.data"
+          .item-avatar
+            img ng-src="img/{{style.id}}.png"
+            | {{style.name}}
+        ion-item.item-divider
+        ion-item href="#/app/record" menu-close="" nav-clear=""
+          .item-avatar style="padding-left: 12px;"
+            span.ion-flag style="font-size: 32px;"
+            span.col-offset-20
+              | 查看记录
+

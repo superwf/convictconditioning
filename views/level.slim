@@ -1,0 +1,18 @@
+ion-view title="{{style.name}} - {{level}}" 
+  ion-nav-buttons side="left" 
+    button.button.button-icon.icon.ion-navicon menu-toggle="left" 
+  ion-nav-buttons side="right" 
+    button.button.button-icon.icon.ion-compose ng-click="save()"
+  ion-content.has-header
+    .list.list-inset
+      label.item.item-input
+        span.input-label 训练日期：
+        input type="text" ui-date="dateOptions" ng-model="training.date" ng-required="true"
+      label.item.item-input
+        span.input-label 训练组：
+        input type="number" ng-model="training.sets" ng-required="true"
+      label.item.item-input
+        span.input-label 每组次数：
+        input type="number" ng-model="training.times" ng-required="true"
+    .card ng-show="saved"
+      .item.item-divider 数据已保存
