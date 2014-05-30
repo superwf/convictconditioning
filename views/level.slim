@@ -1,6 +1,6 @@
-ion-view title="{{style.name}} - {{level}}" 
-  ion-nav-buttons side="left" 
-    button.button.button-icon.icon.ion-navicon menu-toggle="left" 
+ion-view.level title="{{style.name}} - {{level}}" 
+  /ion-nav-buttons side="left" 
+  /  button.button.button-icon.icon.ion-navicon menu-toggle="left" 
   ion-nav-buttons side="right" 
     button.button.button-icon.icon.ion-compose ng-click="save()"
   ion-content.has-header
@@ -15,3 +15,7 @@ ion-view title="{{style.name}} - {{level}}"
         span.input-label 每组次数：
         input type="number" ng-model="training.times" ng-required="true"
     button.button.button-block.button-balanced ng-show="saved" 数据已保存
+    .card
+      button.button ng-click="getPicture()" 照相
+      img ng-show="image" ng-src="{{image}}"
+      p ng-show="error" {{error}}
