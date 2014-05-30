@@ -14,5 +14,4 @@ ion-view title="{{style.name}} - {{level}}"
       label.item.item-input
         span.input-label 每组次数：
         input type="number" ng-model="training.times" ng-required="true"
-    .card ng-show="saved"
-      .item.item-divider 数据已保存
+    button.button.button-block.button-balanced ng-show="saved" 数据已保存

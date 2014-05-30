@@ -72,6 +72,6 @@ gulp.task "serve", ["slim", "coffee", "sass", "watch"], ->
     root: ["./www"]
   return
 gulp.task 'icon', ->
-  gulp.src("./www/res/icon.png").pipe(gulp.dest("./platforms/android/res/drawable/")).pipe(gulp.dest("./platforms/android/res/drawable-hdpi/")).pipe(gulp.dest("./platforms/android/res/drawable-ldpi/")).pipe(gulp.dest("./platforms/android/res/drawable-mdpi/")).pipe(gulp.dest("./platforms/android/res/drawable-xhdpi/"))
+  gulp.src("./res/icon.png").pipe(gulp.dest("./platforms/android/res/drawable/")).pipe(gulp.dest("./platforms/android/res/drawable-hdpi/")).pipe(gulp.dest("./platforms/android/res/drawable-ldpi/")).pipe(gulp.dest("./platforms/android/res/drawable-mdpi/")).pipe(gulp.dest("./platforms/android/res/drawable-xhdpi/"))
 gulp.task 'screen', ->
-  gulp.src("./www/res/screen.png").pipe(gulp.dest("./platforms/android/res/drawable/")).pipe(gulp.dest("./platforms/android/res/drawable-hdpi/")).pipe(gulp.dest("./platforms/android/res/drawable-ldpi/")).pipe(gulp.dest("./platforms/android/res/drawable-mdpi/")).pipe(gulp.dest("./platforms/android/res/drawable-xhdpi/"))
+  gulp.src("./res/screen.png").pipe(gulp.dest("./platforms/android/res/drawable/")).pipe(gulp.dest("./platforms/android/res/drawable-hdpi/")).pipe(gulp.dest("./platforms/android/res/drawable-ldpi/")).pipe(gulp.dest("./platforms/android/res/drawable-mdpi/")).pipe(gulp.dest("./platforms/android/res/drawable-xhdpi/"))

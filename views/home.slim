@@ -3,5 +3,9 @@ ion-view title="App介绍"
     button.button.button-icon.icon.ion-navicon menu-toggle="left" 
   ion-content.has-header
     .card
-      .item.item-divider 至追求强大的人们
+      .item.item-divider 至追求强大的{{convict.name}}
       | 此app的灵感来源于《囚徒健身》这本书，该app 并不能替代书籍，您仍需要阅读原书，并推荐您购买正版支持作者。
+    .list.list-inset
+      label.item.item-input
+        span.input-label 输入您的名字：
+        input type="text" ng-model="convict.name"

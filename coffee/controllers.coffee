@@ -1,9 +1,14 @@
 angular.module("app.controllers", [])
-.controller "MenuCtrl", ($scope, $state, Style) ->
+.controller "MenuCtrl", ($scope, $state, Style, $window) ->
+  if $window.localStorage.convict
+    $scope.convict = {
+      name: $window.localStorage.convict
+    }
+  $scope.$watch 'convict.name', (c)->
+    $window.localStorage.convict = c
   $scope.Style = Style
-
   return
-.controller "LevelCtrl", ($scope, $stateParams, Style, db) ->
+.controller "LevelCtrl", ($scope, $stateParams, Style, db, $timeout) ->
   $scope.style = Style.getByName($stateParams.style)
   $scope.level = $stateParams.level
   $scope.dateOptions = {
@@ -26,16 +31,36 @@ angular.module("app.controllers", [])
       times: $scope.training.times
     }
     $scope.saved = true
+    $timeout ->
+      $scope.saved = false
+    , 1000
     db.update_or_create(date, data)
   null
 .controller "StyleCtrl", ($scope, $stateParams, Style) ->
   $scope.style = Style.getByName($stateParams.style)
   null
 .controller "RecordCtrl", ($scope, TrainingRecord) ->
+  hasMore = true
   map = (d) ->
-    emit d
-  TrainingRecord.query(map: map, reduce: false, limit: 4).then (records)->
-    $scope.records = records.rows
+    emit d._id
+  $scope.loadMore = ->
+    if !hasMore
+      $scope.$broadcast('scroll.infiniteScrollComplete')
+      return false
+    if $scope.records
+      id = $scope.records[$scope.records.length - 1].id
+      TrainingRecord.query(map, limit: 2, include_docs: true, descending: true, endkey: id).then (records)->
+        if records.rows[1]
+          $scope.records.push records.rows[1]
+          $scope.$broadcast('scroll.infiniteScrollComplete')
+        else
+          hasMore = false
+    else
+      TrainingRecord.query(map, limit: 2, include_docs: true, descending: true).then (records)->
+        $scope.records = records.rows
+        $scope.$broadcast('scroll.infiniteScrollComplete')
+  $scope.$on 'stateChangeSuccess', ->
+    $scope.loadMore()
 
   $scope.delete = (record, i) ->
     TrainingRecord.remove record

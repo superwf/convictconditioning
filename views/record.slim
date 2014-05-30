@@ -2,11 +2,12 @@ ion-view title="记录"
   ion-nav-buttons side="left" 
     button.button.button-icon.icon.ion-navicon menu-toggle="left" 
   ion-content.has-header
+    ion-infinite-scroll on-infinite="loadMore()"
     .card ng-repeat="r in records"
       .item.item-divider
-        | date: {{r.id}}
-        button.col-offset-10.ion-trash-a ng-click="delete(r.key, $index)"
-      .item.item-text-wrap ng-repeat="d in r.key.data"
+        | 训练日: {{r.id}}
+        button.col-offset-10.ion-trash-a ng-click="delete(r.doc, $index)"
+      .item.item-text-wrap ng-repeat="d in r.doc.data"
         | 锻炼项目: {{d.style}}
         span.ion-minus
         span.ion-chevron-right
