@@ -118,7 +118,7 @@ angular.module "app.services", []
         _id: date
         data: data
       })
-    update_or_create: (date, data, image)->
+    update_or_create: (date, data)->
       date = this.dateFormat(date)
       db.get(date).then (d)->
         if !(d.data instanceof Array)
@@ -132,7 +132,6 @@ angular.module "app.services", []
             break
         if !exists
           d.data.push data
-        d.image = image if image
         db.put({
           _id: date
           _rev: d._rev
@@ -143,7 +142,7 @@ angular.module "app.services", []
         db.put({
           _id: date
           data: [data]
-          image: image
+          image: null
         })
       .catch (error)->
         console.log error

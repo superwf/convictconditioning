@@ -31,14 +31,12 @@ angular.module("app.controllers", [])
       sets: $scope.training.sets
       times: $scope.training.times
     }
-    console.log data
-    return
     $timeout ->
       $scope.saved = false
     , 1000
-    db.update_or_create(date, data, $scope.image)
+    db.update_or_create(date, data)
     $scope.saved = true
-    #navigator.notification.vibrate(100)
+    navigator.notification.vibrate(100)
 
   # if this level data exists, get it
   $scope.training = {
@@ -56,28 +54,6 @@ angular.module("app.controllers", [])
             $scope.training.times = st.times
             $scope.image = d.image if d.image
           break
-
-  # take picture
-  $scope.getPicture = ->
-    navigator.camera.getPicture (imageURI)->
-      $scope.image = imageURI
-      db.get $scope.training.date, (error, d) ->
-        if d
-          db.put({
-            _id: d.id
-            _rev: d._rev
-            data: d.data
-            image: imageURI
-          })
-        else
-          db.put({
-            _id: date
-            data: []
-            image: imageURI
-          })
-    , (error)->
-      $scope.error = error
-    ,quality: 50, destinationType: Camera.DestinationType.FILE_URI
 
   null
 
@@ -101,6 +77,7 @@ angular.module("app.controllers", [])
           $scope.$broadcast('scroll.infiniteScrollComplete')
         else
           hasMore = false
+          $scope.$broadcast('scroll.infiniteScrollComplete')
     else
       TrainingRecord.query(map, limit: 2, include_docs: true, descending: true).then (records)->
         $scope.records = records.rows
@@ -111,5 +88,21 @@ angular.module("app.controllers", [])
   $scope.delete = (record, i) ->
     TrainingRecord.remove record
     $scope.records.splice(i, 1)
+
+  # take picture
+  $scope.getPicture = (record)->
+    navigator.camera.getPicture (imageURI)->
+      $scope.$apply ->
+        record.doc.image = imageURI
+      TrainingRecord.put({
+        _id: record.id
+        _rev: record.doc._rev
+        data: record.doc.data
+        image: imageURI
+      })
+    , (error)->
+      $scope.error = error
+    ,quality: 50, destinationType: Camera.DestinationType.FILE_URI
+
   null
 

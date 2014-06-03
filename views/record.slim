@@ -2,7 +2,6 @@ ion-view title="记录"
   ion-nav-buttons side="left" 
     button.button.button-icon.icon.ion-navicon menu-toggle="left" 
   ion-content.has-header
-    ion-infinite-scroll on-infinite="loadMore()"
     .card ng-repeat="r in records"
       .item.item-divider
         | 训练日: {{r.id}}
@@ -16,3 +15,7 @@ ion-view title="记录"
         | 组数: {{d.sets}}
         span.ion-close
         | 次数: {{d.times}}
+      .item.item-text-wrap
+        button.button ng-click="getPicture(r)" 照相留念
+        img ng-show="r.doc.image" ng-src="{{r.doc.image}}"
+    ion-infinite-scroll on-infinite="loadMore()"
