@@ -1,9 +1,9 @@
 angular.module("app.controllers", [])
 .controller "MenuCtrl", ($scope, $state, Style, $window) ->
-  if $window.localStorage.convict
-    $scope.convict = {
-      name: $window.localStorage.convict
-    }
+  $window.localStorage.convict = '' if !$window.localStorage.convict
+  $scope.convict = {
+    name: $window.localStorage.convict
+  }
   $scope.$watch 'convict.name', (c)->
     $window.localStorage.convict = c
   $scope.Style = Style
